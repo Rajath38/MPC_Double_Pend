@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<robot name="cart_double_pendulum_massless_links">
+
+   <link name="world" />
+
+   <joint name="world_to_base_link=" type="fixed">
+      <parent link="world"/>
+      <child link="slideBar"/>
+   </joint>
+
+   <link name="slideBar">
+      <visual>
+        <geometry>
+          <box size="30 0.05 0.05"/>
+        </geometry>
+        <origin xyz="0 0 0"/>
+        <material name="green">
+          <color rgba="0 0.8 .8 1"/>
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.6"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+    </link>
+
+  <!-- Cart Link -->
+  <link name="cart">
+    <inertial>
+      <mass value="0.6"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" iyy="0.001" izz="0.001" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.1"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- First Light Rod (link1) -->
+  <link name="link1">
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="4.1667e-3" iyy="4.1667e-3" izz="4.1667e-3" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.01" length="0.5"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Mass at end of link1 (mass1) -->
+  <link name="mass1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Second Light Rod (link2) -->
+  <link name="link2">
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="4.1667e-3" iyy="4.1667e-3" izz="4.1667e-3" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.01" length="0.5"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Joints -->
+
+  <joint name="slider_to_cart" type="prismatic">
+   <axis xyz="1 0 0"/>
+   <origin xyz="0.0 0.0 0.0"/>
+   <parent link="slideBar"/>
+   <child link="cart"/>
+   <limit effort="1000.0" lower="-2" upper="2" velocity="5"/>
+  </joint> 
+
+  <!-- Revolute Joint for Link1 -->
+  <joint name="hinge1" type="revolute">
+    <parent link="cart"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100" velocity="5" lower="-3.14159" upper="3.14159"/>
+  </joint>
+
+  <!-- Fixed joint to Mass1 -->
+  <joint name="fixed_mass1" type="fixed">
+    <parent link="link1"/>
+    <child link="mass1"/>
+    <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Revolute Joint for Link2 -->
+  <joint name="hinge2" type="revolute">
+    <parent link="mass1"/>
+    <child link="link2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100" velocity="10" lower="-3.14159" upper="3.14159"/>
+  </joint>
+
+</robot>
