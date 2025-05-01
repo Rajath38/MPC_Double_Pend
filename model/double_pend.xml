@@ -1,0 +1,47 @@
+<mujoco model="cart_double_pendulum_massless_links">
+    <compiler angle="degree"/>
+    <option gravity="0 0 -9.81"/>
+
+    <worldbody>
+        <!-- Ground plane -->
+        <geom type="plane" size="5 5 0.1" rgba="0.8 0.9 0.8 1"/>
+
+        <!-- Cart body -->
+        <body name="cart" pos="0 0 2">
+            <geom type="box" size="0.1 0.1 0.05" rgba="0 0 1 1" mass="0.6"/>
+            <joint name="cart_slide" type="slide" axis="1 0 0" range="-4 4" limited="true"/>
+
+            <!-- First link (light rod) -->
+            <body name="link1" pos="0 0 0">
+                <inertial mass="1e-6" diaginertia="1e-6 1e-6 1e-6" pos="0 0 0"/>
+                <joint name="hinge1" type="hinge" axis="0 1 0" limited="false"/>
+                <geom type="capsule" fromto="0 0 0  0 0 -0.5" size="0.01" mass="1e-6" rgba="1 0 0 1"/>
+
+                <!-- Point mass at the end of link 1 -->
+                <body name="mass1" pos="0 0 -0.5">
+                    <geom type="sphere" size="0.05" mass="0.2" rgba="1 0 0 1"/>
+
+                    <!-- Second link (light rod) -->
+                    <body name="link2" pos="0 0 0">
+                        <inertial mass="1e-6" diaginertia="1e-6 1e-6 1e-6" pos="0 0 0"/>
+                        <joint name="hinge2" type="hinge" axis="0 1 0" limited="false"/>
+                        <geom type="capsule" fromto="0 0 0  0 0 -0.5" size="0.01" mass="1e-6" rgba="0 1 0 1"/>
+
+                        <!-- Point mass at the end of link 2 -->
+                        <body name="mass2" pos="0 0 -0.5">
+                            <geom type="sphere" size="0.05" mass="0.2" rgba="0 1 0 1"/>
+                        </body>
+
+                    </body>
+                </body>
+            </body>
+
+        </body>
+    </worldbody>
+
+    <actuator>
+        <!-- Motor on the cart slide joint -->
+        <motor joint="cart_slide" ctrlrange="-10 10" gear="1"/>
+
+    </actuator>
+</mujoco>
