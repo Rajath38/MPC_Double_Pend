@@ -82,7 +82,7 @@ def sim_loop():
     qs = [q0]
     vs = [v0]
     print(f"vs:{vs}")
-    nsteps = 500
+    nsteps = 5000
     for i in range(nsteps):
         q = qs[i]
         v = vs[i]
@@ -110,7 +110,7 @@ np.save("qs_log.npy", qs)
 np.save("vs_log.npy", vs)
 
 # === Optional: Plot results ===
-nsteps = 500
+nsteps = 5000
 
 time = np.arange(nsteps + 1) * dt
 

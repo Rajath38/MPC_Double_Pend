@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../msg/exlcm/example_t.hpp
+lcm/lcm_coretypes.h
+-
+string
+-
+
+/home/rajath/Documents/MPC_Double_Pend/src/subscriber.cpp
+lcm/lcm-cpp.hpp
+-
+msg/exlcm/example_t.hpp
+/home/rajath/Documents/MPC_Double_Pend/src/msg/exlcm/example_t.hpp
+iostream
+-
+

@@ -11,21 +11,14 @@
  #include "pinocchio/algorithm/joint-configuration.hpp"
  #include "pinocchio/algorithm/rnea.hpp"
  #include "pinocchio/parsers/urdf.hpp"
- 
- // PINOCCHIO_MODEL_DIR is defined by the CMake but you can define your own
- // directory here.
- #ifndef PINOCCHIO_MODEL_DIR
-   #define PINOCCHIO_MODEL_DIR "path_to_the_model_dir"
- #endif
+ #include "pinocchio/algorithm/aba.hpp"
  
  int main(int argc, char ** argv)
  {
    using namespace pinocchio;
  
    // Change to your own URDF file here, or give a path as command-line argument
-   const std::string urdf_filename = (argc <= 1)
-                                        std::string("model/double_pend.urdf")
-                                       : argv[1];
+   const std::string urdf_filename = "model/double_pend.urdf";
  
    // Load the URDF model
    Model model;
@@ -33,16 +26,26 @@
  
    // Build a data frame associated with the model
    Data data(model);
- 
-   // Sample a random joint configuration, joint velocities and accelerations
-   Eigen::VectorXd q = randomConfiguration(model);      // in rad for the UR5
-   Eigen::VectorXd v = Eigen::VectorXd::Zero(model.nv); // in rad/s for the UR5
-   Eigen::VectorXd a = Eigen::VectorXd::Zero(model.nv); // in rad/s² for the UR5
- 
-   // Computes the inverse dynamics (RNEA) for all the joints of the robot
-   Eigen::VectorXd tau = pinocchio::rnea(model, data, q, v, a);
- 
+
+
+   float time_step = 0.01 ;
+   int nsteps = 500 ;
+
+   //initialize the positiona and velocities
+
+   Eigen::Vector3d q0 {0.0, 0.0, 0.5} ; // Initial joint positions (e.g., slider, hinge1, hinge2)
+   Eigen::Vector3d v0 {0.0, 0.0, 0.0} ; //  # Initial joint velocities
+   Eigen::Vector3d tau0 {0.0, 0.0, 0.0} ; //  # Initial joint velocities
+
+
+   
+   Eigen::Vector3d a1 = pinocchio::aba(model, data, q0, v0, tau0);
+
+    
    // Print out to the vector of joint torques (in N.m)
-   std::cout << "Joint torques: " << data.tau.transpose() << std::endl;
+   std::cout << "Joint torques: " << a1 << std::endl;
+
+
+
    return 0;
  }

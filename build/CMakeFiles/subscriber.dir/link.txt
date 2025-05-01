@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/subscriber.dir/src/subscriber.cpp.o -o subscriber  -llcm 
+/usr/bin/c++     CMakeFiles/subscriber.dir/src/subscriber.cpp.o  -o subscriber  -llcm 

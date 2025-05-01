@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/subscriber.dir/src/subscriber.cpp.o"
-  "CMakeFiles/subscriber.dir/src/subscriber.cpp.o.d"
   "subscriber"
   "subscriber.pdb"
 )
