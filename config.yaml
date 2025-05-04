@@ -1,0 +1,3 @@
+sim_dt: 0.004
+control_dt: 0.02
+model_path: "/home/rajath/Documents/MPC_Double_Pend/model/double_pend.xml"
