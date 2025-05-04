@@ -51,7 +51,7 @@ for i in range(nsteps):
 
 #uncomment to plot
 
-"""# === Optional: Convert to NumPy arrays for analysis ===
+# === Optional: Convert to NumPy arrays for analysis ===
 qs = np.array(qs)
 vs = np.array(vs)
 
@@ -75,4 +75,4 @@ plt.ylabel("Joint position")
 plt.legend()
 plt.grid()
 plt.title("Joint Positions Over Time")
-plt.show()"""
+plt.show()
