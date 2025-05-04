@@ -326,14 +326,6 @@ class RobotInterface(object):
         else:
             raise Exception("object type should either be OBJ_BODY/OBJ_GEOM/OBJ_SITE.")
 
-    def get_object_xquat_by_name(self, obj_name, object_type):
-        if object_type=="OBJ_BODY":
-            return self.data.body(obj_name).xquat
-        if object_type=="OBJ_SITE":
-            xmat = self.data.site(obj_name).xmat
-            return tf3.quaternions.mat2quat(xmat)
-        else:
-            raise Exception("object type should be OBJ_BODY/OBJ_SITE.")
 
     def get_robot_com(self):
         """
