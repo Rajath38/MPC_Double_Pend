@@ -1,13 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from model.dynamics.double_pend_casadi_dynamics import CasadiDoublePendCart  # or whatever filename you used
+from model.dynamics.double_pend_casadi_dynamics import CasadiDoublePendCart 
 import time
 
 # === Load simulation model ===
 sim = CasadiDoublePendCart(config_file='config.yaml')  # replace with actual path
 
 # === Initial state ===
-q0 = np.array([0.0, 0.2, -0.2])
+q0 = np.array([0.0, 0.2, -3])
 v0 = np.array([0.0, 0.0, 0.0])
 x0 = np.concatenate([q0, v0])
 
@@ -21,8 +21,10 @@ vs = [v0]
 xs = [x0]
 
 for i in range(nsteps):
-    x_next = sim.step(x0, torque_input)
+    x_next, ke, pe = sim.step(x0, torque_input)
     x0 = x_next.full().flatten()
+
+    print(f"ke:{ke}, pe:{pe}")
     
     qs.append(x0[:sim.nq])
     vs.append(x0[sim.nq:])

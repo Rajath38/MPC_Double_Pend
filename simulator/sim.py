@@ -16,7 +16,7 @@ viewer._paused = True
 
 action_space_size = 1
 #action = np.zeros(action_space_size)
-tau = np.array([1])*-1
+tau = np.array([1])*-3
 #action = np.zeros()
 
 env.reset_model()

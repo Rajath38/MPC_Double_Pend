@@ -11,7 +11,7 @@ class Env(mujoco_env.MujocoEnv):
         config = self.load_config(config_file)
         self.sim_dt = config.get('sim_dt', 0.004)
         self.control_dt = config.get('control_dt', 0.02)
-        model_path = config.get('model_path', '')   #model_path = '/user/rajathch/Documents/LearningHumanoidWalking_new_CCR_6/models/bruce_mj_description/xml/bruce.xml'
+        model_path = config.get('model_path_xml', '') 
         
         self.frame_skip = int(round(self.control_dt / self.sim_dt))
         
