@@ -33,7 +33,7 @@ for i in range(model.nv):
 # === Display initial configuration ===
 print("nq =", model.nq)
 print("nv =", model.nv)
-q0 = np.array([0,0,0.5])
+q0 = np.array([0.0, 0.2, -0.2])
 viz.display(q0)
 viz.displayVisuals(True)
 
@@ -71,18 +71,19 @@ viz.display(q0)
 # === Dynamics simulation loop ===
 #model.gravity.linear = np.array([0, 0, -9.81])
 dt = 0.01
-f = 0.01
+f = 0.0
+nsteps = 500
 
 def sim_loop():
     #tau0 = np.array([f, 0, 0]) #np.zeros(model.nv)
     #tau0 = np.zeros(model.nv)  # No actuation
-    tau0 = np.array([0, 0, 0])  # Actuate all joints
+    tau0 = np.array([f, 0, 0])  # Actuate all joints
 
     print(f"tau0:{tau0}")
     qs = [q0]
     vs = [v0]
     print(f"vs:{vs}")
-    nsteps = 5000
+
     for i in range(nsteps):
         q = qs[i]
         v = vs[i]
@@ -110,7 +111,7 @@ np.save("qs_log.npy", qs)
 np.save("vs_log.npy", vs)
 
 # === Optional: Plot results ===
-nsteps = 5000
+
 
 time = np.arange(nsteps + 1) * dt
 

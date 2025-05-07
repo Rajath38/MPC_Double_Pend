@@ -4,5 +4,6 @@ struct example_t
 {
     int64_t    timestamp;
     int32_t    position;
+    double     torque;
     string     name;
 }

@@ -65,12 +65,20 @@ def DM2Arr(dm):
     return np.array(dm.full())
 
 def next_state_model(state, control):
+
+    state = DM2Arr(state)
     theta = state[2]
+    print(f"theta:{theta}")
     v = control[0]
     omega = control[1]
 
-    rhs = ca.vertcat(v * ca.cos(theta), v * ca.sin(theta), omega)
+    #rhs = ca.vertcat(v * ca.cos(theta), v * ca.sin(theta), omega)
+    rhs = np.array([v * np.cos(theta), v * np.sin(theta), omega])
+    
+    print(f"rhs:{rhs}")
     next_state = state + step_horizon * rhs
+
+    print(f"ns:{next_state}")
 
     return next_state
 
